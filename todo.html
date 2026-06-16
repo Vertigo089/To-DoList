@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+
+    <div class="logo">MyTasks</div>
+    <div id="user-info" class="user-profile"></div>
+
+</header>
+
+<main class="container">
+
+<div class="layout">
+
+<aside class="sidebar">
+
+    <h1>Мой To-Do List</h1>
+
+    <form id="task-form">
+
+        <div class="form-group">
+            <label class="field-title">Название <span>*</span></label>
+            <input type="text" id="title" placeholder="Введите название задачи" required>
+        </div>
+
+        <div class="form-group">
+            <label class="field-title">Описание</label>
+            <textarea id="description" placeholder="Введите описание задачи"></textarea>
+        </div>
+
+        <div class="form-group">
+
+            <label class="field-label">Приоритет <span>*</span></label>
+            <div class="priority-group">
+
+                <label class="priority-option low">
+                    <input type="radio" name="priority" value="Низкая">
+                    <span class="radio-circle"></span>
+                    Низкий
+                </label>
+
+                <label class="priority-option medium">
+                    <input type="radio" name="priority" value="Средняя">
+                    <span class="radio-circle"></span>
+                    Средний
+                </label>
+
+                <label class="priority-option high">
+                    <input type="radio" name="priority" value="Высокая">
+                    <span class="radio-circle"></span>
+                    Высокий
+                </label>
+            </div>
+            <p class="error-text">Выберите приоритет</p>
+        </div>
+
+<div class="form-group">
+
+    <label class="field-title">Категория <span>*</span></label>
+
+    <select id="category" required>
+
+        <option value="" selected disabled>Категория</option>
+        <option value="Учёба">Учёба</option>
+        <option value="Работа">Работа</option>
+        <option value="Дом">Дом</option>
+        <option value="Покупки">Покупки</option>
+        <option value="Здоровье">Здоровье</option>
+        <option value="Личное">Другое</option>
+
+    </select>
+
+</div>
+
+<div class="form-group">
+
+    <label class="field-title">Дедлайн <span>*</span></label>
+    <input type="datetime-local" id="deadline" required>
+
+</div>
+
+<button type="submit">Создать задачу</button>
+
+</form>
+</aside>
+<section class="content">
+
+    <input type="text" id="search" placeholder="Поиск задач...">
+
+    <div class="filters">
+
+        <div class="filter-group">
+
+            <label>Категория</label>
+            <select id="category-filter">
+                <option value="all">Все категории</option>
+                <option value="Учёба">Учёба</option>
+                <option value="Работа">Работа</option>
+                <option value="Дом">Дом</option>
+                <option value="Покупки">Покупки</option>
+                <option value="Здоровье">Здоровье</option>
+                <option value="Личное">Личное</option>
+            </select>
+
+        </div>
+
+        <div class="filter-group">
+
+            <label>Приоритет</label>
+            <select id="priority-filter">
+                <option value="all">Все приоритеты</option>
+                <option value="Высокая">Высокая</option>
+                <option value="Средняя">Средняя</option>
+                <option value="Низкая">Низкая</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Статус</label>
+            <select id="status-filter">
+                <option value="all">Все</option>
+                <option value="active">Активные</option>
+                <option value="completed">Выполненные</option>
+                <option value="overdue">Просроченные</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+
+            <label>Показать</label>
+            <select id="view-filter">
+                <option value="nearest">Ближайшие дедлайны</option>
+                <option value="latest">Дальние дедлайны</option>
+                <option value="completed">Сначала выполненные</option>
+                <option value="overdue">Сначала просроченные</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card total">
+            <span id="total-count">0</span>
+            <p>Всего задач</p>
+        </div>
+
+        <div class="stat-card active">
+            <span id="active-count">0</span>
+            <p>Активные</p>
+        </div>
+
+        <div class="stat-card completed-stat">
+            <span id="completed-count">0</span>
+            <p>Выполненные</p>
+        </div>
+
+        <div class="stat-card overdue">
+            <span id="overdue-count">0</span>
+            <p>Просроченные</p>
+        </div>
+
+    </div>
+    <div id="tasks"></div>
+
+</section>
+</div>
+</main>
+
+<script type="module" src="js/main.js"></script>
+<div id="edit-modal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Редактирование задачи</h2>
+        <input type="text" id="edit-title" placeholder="Название задачи">
+        <textarea id="edit-description" placeholder="Описание"></textarea>
+
+        <select id="edit-category">
+            <option value="Учёба">Учёба</option>
+            <option value="Работа">Работа</option>
+            <option value="Дом">Дом</option>
+            <option value="Покупки">Покупки</option>
+            <option value="Здоровье">Здоровье</option>
+            <option value="Личное">Личное</option>
+        </select>
+
+        <select id="edit-priority">
+            <option value="Высокая">Высокая</option>
+            <option value="Средняя">Средняя</option>
+            <option value="Низкая">Низкая</option>
+        </select>
+
+        <input type="datetime-local" id="edit-deadline">
+        <button id="save-edit">Сохранить</button>
+        <button id="close-edit">Отмена</button>
+
+    </div>
+</div>
+</body>
+</html>
